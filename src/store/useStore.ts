@@ -4,7 +4,7 @@ import { Store, useChromeStorage } from "./useChromeStorage";
 
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
-  const { getStorage, pushValue } = useChromeStorage();
+  const { pushValue } = useChromeStorage();
 
   useDebounce(
     async () => {
@@ -12,7 +12,6 @@ export const useStore = () => {
         return;
       }
       pushValue(tmpValue);
-      console.log(await getStorage(tmpValue.url));
     },
     3000,
     [tmpValue]
