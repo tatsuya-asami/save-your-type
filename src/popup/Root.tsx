@@ -1,14 +1,13 @@
 import { useStorageData } from "./useStorageData";
 
 export const Root: React.FC = () => {
-  const { storageData } = useStorageData();
-  console.log(storageData);
+  const { currentStorageData } = useStorageData();
 
   return (
     <div>
       {
         <ul>
-          {storageData?.map((data) => {
+          {currentStorageData?.map((data) => {
             return <li key={data.datetime}>{data.value}</li>;
           })}
         </ul>
