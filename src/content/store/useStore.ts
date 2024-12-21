@@ -1,21 +1,18 @@
 import { useState } from "react";
 import useDebounce from "react-use/lib/useDebounce";
-
-export type Store = {
-  datetime: string;
-  identifier: string;
-  url: string;
-  value: string;
-};
+import { Store, useChromeStorage } from "./useChromeStorage";
 
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
-  const [debouncedValue, setDebouncedValue] = useState<Store>();
-
+  const [value, setStorage] = useChromeStorage();
+  console.log(value);
   useDebounce(
     () => {
-      setDebouncedValue(tmpValue);
-      console.log(tmpValue, debouncedValue);
+      if (!tmpValue) {
+        return;
+      }
+      setStorage([...value, tmpValue]);
+      console.log(tmpValue, value);
     },
     1000,
     [tmpValue]
