@@ -1,4 +1,4 @@
-import { useStore } from "../store/useStore";
+import { useStore } from "../../store/useStore";
 
 export const useEventListeners = () => {
   const { saveValue, pushValueImmediately } = useStore();
