@@ -6,18 +6,16 @@ export type Store = {
 };
 
 export const useChromeStorage = () => {
-  const setStorage = (store: Store) => {
+  const setStorage = (storeList: Store[]) => {
+    const key = storeList?.[0].url ?? "unknown";
+
     return chrome.storage.local.set({
-      [store.url]: {
-        datetime: store.datetime,
-        identifier: store.identifier,
-        value: store.value,
-      },
+      [key]: storeList,
     });
   };
 
   const getStorage = (url: string) => {
-    return new Promise<Store | undefined>((resolve) => {
+    return new Promise<Store[] | undefined>((resolve) => {
       chrome.storage.local.get(url, (result) => {
         resolve(result[url]);
       });
@@ -27,9 +25,9 @@ export const useChromeStorage = () => {
   const pushValue = (newValue: Store) => {
     getStorage(newValue.url).then((store) => {
       if (store) {
-        setStorage({ ...store, ...newValue });
+        setStorage([...store, newValue]);
       } else {
-        setStorage(newValue);
+        setStorage([newValue]);
       }
     });
   };
