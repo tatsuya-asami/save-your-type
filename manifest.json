@@ -8,5 +8,6 @@
       "js": ["src/content.jsx"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "permissions": ["storage"]
 }
