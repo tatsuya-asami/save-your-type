@@ -27,5 +27,12 @@ export const useStore = () => {
     setTmpValue(value);
   };
 
-  return { saveValue };
+  const pushValueImmediately = () => {
+    if (!tmpValue) {
+      return;
+    }
+    pushValue(tmpValue);
+  };
+
+  return { saveValue, pushValueImmediately };
 };

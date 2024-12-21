@@ -1,7 +1,7 @@
 import { useStore } from "../store/useStore";
 
 export const useEventListeners = () => {
-  const { saveValue } = useStore();
+  const { saveValue, pushValueImmediately } = useStore();
 
   const handleInput = (event: Event) => {
     const eventTarget = event.target;
@@ -16,7 +16,7 @@ export const useEventListeners = () => {
     saveValue({ identifier, value });
   };
 
-  return { handleInput };
+  return { handleInput, pushValueImmediately };
 };
 
 const isHTMLElement = (target: EventTarget | null): target is HTMLElement => {

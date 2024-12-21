@@ -3,7 +3,15 @@ import { useEventListeners } from "./eventListener";
 import { monitorDOMChanges } from "./monitorDOMChanges";
 
 export const useInputChangeObserverEffect = () => {
-  const { handleInput } = useEventListeners();
+  const { handleInput, pushValueImmediately } = useEventListeners();
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", pushValueImmediately);
+
+    return () => {
+      window.removeEventListener("beforeunload", pushValueImmediately);
+    };
+  }, [pushValueImmediately]);
 
   useEffect(() => {
     document.body.addEventListener("input", handleInput);
