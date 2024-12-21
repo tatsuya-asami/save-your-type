@@ -4,15 +4,15 @@ import { Store, useChromeStorage } from "./useChromeStorage";
 
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
-  const [value, setStorage] = useChromeStorage();
-  console.log(value);
+  const [storage, setStorage] = useChromeStorage();
+
   useDebounce(
     () => {
       if (!tmpValue) {
         return;
       }
-      setStorage([...value, tmpValue]);
-      console.log(tmpValue, value);
+      setStorage([...storage, tmpValue]);
+      console.log(storage);
     },
     1000,
     [tmpValue]
