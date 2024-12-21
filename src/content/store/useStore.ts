@@ -14,7 +14,7 @@ export const useStore = () => {
       pushValue(tmpValue);
       console.log(await getStorage(tmpValue.url));
     },
-    1000,
+    3000,
     [tmpValue]
   );
 
