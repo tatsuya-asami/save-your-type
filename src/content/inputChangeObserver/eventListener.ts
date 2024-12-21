@@ -1,11 +1,5 @@
 import { useStore } from "../store/useStore";
 
-export const inputTagList = [
-  "input",
-  "textarea",
-  "[contenteditable='true']",
-] as const;
-
 export const useEventListeners = () => {
   const { saveValue } = useStore();
 
@@ -22,34 +16,7 @@ export const useEventListeners = () => {
     saveValue({ identifier, value });
   };
 
-  // blur イベントの処理
-  const handleBlur = (event: Event) => {
-    const eventTarget = event.target;
-    if (!isHTMLElement(eventTarget)) {
-      return;
-    }
-    const value = getInputValue(eventTarget);
-    const identifier = getElementIdentifier(eventTarget);
-    if (value === undefined) {
-      return;
-    }
-    saveValue({ identifier, value });
-  };
-
-  const addEventListenersToFormElements = () => {
-    const inputs = getInputElements();
-
-    inputs.forEach((input) => {
-      input.addEventListener("input", handleInput);
-      input.addEventListener("blur", handleBlur);
-    });
-  };
-
-  return { handleInput, handleBlur, addEventListenersToFormElements };
-};
-
-export const getInputElements = () => {
-  return document.querySelectorAll(inputTagList.join(", "));
+  return { handleInput };
 };
 
 const isHTMLElement = (target: EventTarget | null): target is HTMLElement => {

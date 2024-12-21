@@ -1,31 +1,23 @@
 import { useEffect } from "react";
-import {
-  getInputElements,
-  inputTagList,
-  useEventListeners,
-} from "./eventListener";
+import { useEventListeners } from "./eventListener";
 import { monitorDOMChanges } from "./monitorDOMChanges";
 
 export const useInputChangeObserverEffect = () => {
-  const { handleInput, handleBlur, addEventListenersToFormElements } =
-    useEventListeners();
+  const { handleInput } = useEventListeners();
 
   useEffect(() => {
-    addEventListenersToFormElements();
-
-    const observer = monitorDOMChanges(
-      inputTagList,
-      addEventListenersToFormElements
-    );
+    document.body.addEventListener("input", handleInput);
 
     return () => {
-      const inputs = getInputElements();
-      inputs.forEach((input) => {
-        input.removeEventListener("input", handleInput);
-        input.removeEventListener("blur", handleBlur);
-      });
+      document.body.removeEventListener("input", handleInput);
+    };
+  }, [handleInput]);
 
+  useEffect(() => {
+    const observer = monitorDOMChanges(handleInput);
+
+    return () => {
       observer.disconnect();
     };
-  }, [addEventListenersToFormElements, handleBlur, handleInput]);
+  }, [handleInput]);
 };

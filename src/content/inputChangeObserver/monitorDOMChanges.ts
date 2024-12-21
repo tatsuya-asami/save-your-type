@@ -1,7 +1,10 @@
-export const monitorDOMChanges = (
-  inputTagList: readonly string[],
-  callback: () => void
-) => {
+export const inputTagList = [
+  "input",
+  "textarea",
+  "[contenteditable='true']",
+] as const;
+
+export const monitorDOMChanges = (callback: (value: Event) => void) => {
   const observer = new MutationObserver((mutationsList) => {
     mutationsList.forEach((mutation) => {
       if (!(mutation.type === "childList")) {
@@ -14,7 +17,7 @@ export const monitorDOMChanges = (
         if (!inputTagList.some((selector) => node.matches(selector))) {
           return;
         }
-        callback();
+        document.body.addEventListener("input", callback);
       });
     });
   });
