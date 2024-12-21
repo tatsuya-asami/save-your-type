@@ -38,5 +38,14 @@ export const useChromeStorage = () => {
     chrome.storage.local.clear();
   };
 
-  return { getStorage, pushValue, removeAllValue };
+  const getAllStorages = useCallback(() => {
+    return new Promise<Store[]>((resolve) => {
+      chrome.storage.local.get(null, (result) => {
+        const storeList = Object.values(result).flat() as Store[];
+        resolve(storeList);
+      });
+    });
+  }, []);
+
+  return { getStorage, pushValue, removeAllValue, getAllStorages };
 };

@@ -3,7 +3,8 @@ import { Store, useChromeStorage } from "../store/useChromeStorage";
 
 export const useStorageData = () => {
   const [currentStorageData, setCurrentStorageData] = useState<Store[]>();
-  const { getStorage } = useChromeStorage();
+  const [allStorageData, setAllStorageData] = useState<Store[]>();
+  const { getStorage, getAllStorages } = useChromeStorage();
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
@@ -13,10 +14,12 @@ export const useStorageData = () => {
       }
       const data = await getStorage(currentTabUrl);
       setCurrentStorageData(data);
+      setAllStorageData(await getAllStorages());
     });
-  }, [getStorage]);
+  }, [getAllStorages, getStorage]);
 
   return {
     currentStorageData,
+    allStorageData,
   };
 };
