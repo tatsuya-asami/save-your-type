@@ -2,6 +2,7 @@ import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import { DeleteAllHistories } from "./DeleteAllHistories";
 import { DurationDaysToKeepHistories } from "./DurationDaysToKeepHistories";
+import { DebounceTimeMs } from "./DebounceTimeMs";
 // import { UrlBlackList } from "./UrlBlackList";
 
 export const Settings: React.FC = () => {
@@ -11,6 +12,7 @@ export const Settings: React.FC = () => {
         <DeleteAllHistories />
         {/* <UrlBlackList /> */}
         <DurationDaysToKeepHistories />
+        <DebounceTimeMs />
       </List>
     </Box>
   );

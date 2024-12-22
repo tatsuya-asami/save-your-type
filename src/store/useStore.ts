@@ -9,7 +9,7 @@ export const useStore = () => {
     settings: { debounceTime },
   } = useChromeStorageSettings();
   const { pushValue } = useChromeStorageHistories();
-  console.log(debounceTime);
+
   const [isReady, cancel] = useDebounce(
     async () => {
       if (!tmpValue) {
