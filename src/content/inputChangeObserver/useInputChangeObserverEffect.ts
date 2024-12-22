@@ -15,9 +15,11 @@ export const useInputChangeObserverEffect = () => {
 
   useEffect(() => {
     document.body.addEventListener("input", handleInput);
+    document.body.addEventListener("paste", handleInput);
 
     return () => {
       document.body.removeEventListener("input", handleInput);
+      document.body.removeEventListener("paste", handleInput);
     };
   }, [handleInput]);
 
