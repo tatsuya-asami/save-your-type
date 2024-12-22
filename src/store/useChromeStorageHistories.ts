@@ -34,18 +34,33 @@ export const useChromeStorageHistories = () => {
   }, [getStorage, setStorage]);
 
   const pushValue = useCallback(
-    (newValue: Store) => {
-      getStorage().then((store) => {
-        const value = store ? [...store, newValue] : [newValue];
-        setStorage(value).catch((error) => {
+    async (newValue: Store) => {
+      let store = await getStorage();
+      let value = store ? [...store, newValue] : [newValue];
+
+      let attempts = 0;
+      while (attempts < 5) {
+        try {
+          await setStorage(value);
+          return;
+        } catch (error) {
+          if (!(error instanceof Error)) {
+            return;
+          }
           if (error.message === "Storage limit exceeded") {
-            RemoveOldestValues();
-            pushValue(newValue);
+            console.warn("Storage limit exceeded. Removing oldest values...");
+            await RemoveOldestValues();
+            store = await getStorage();
+            value = store ? [...store, newValue] : [newValue];
           } else {
             console.error("Failed to set storage:", error);
+            return;
           }
-        });
-      });
+        }
+        attempts++;
+      }
+
+      console.error("Failed to push value after multiple attempts.");
     },
     [RemoveOldestValues, getStorage, setStorage]
   );
