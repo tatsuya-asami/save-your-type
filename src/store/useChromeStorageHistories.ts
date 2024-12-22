@@ -66,7 +66,7 @@ export const useChromeStorageHistories = () => {
   );
 
   const removeAllValue = () => {
-    chrome.storage.local.clear();
+    chrome.storage.local.remove(STORAGE_KEY);
   };
 
   const removeValuesBefore = useCallback(
