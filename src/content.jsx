@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Root } from "./content/Root";
 
 const root = document.createElement("div");
-root.id = "save-your-type-save-your-time";
+root.id = "save-your-type";
 document.body.appendChild(root);
 
 ReactDOM.createRoot(root).render(
