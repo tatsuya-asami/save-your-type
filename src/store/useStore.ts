@@ -1,11 +1,15 @@
 import { useState } from "react";
 import useDebounce from "react-use/lib/useDebounce";
 import { Store, useChromeStorageHistories } from "./useChromeStorageHistories";
+import { useChromeStorageSettings } from "./useChromeStorageSettings";
 
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
+  const {
+    settings: { debounceTime },
+  } = useChromeStorageSettings();
   const { pushValue } = useChromeStorageHistories();
-
+  console.log(debounceTime);
   const [isReady, cancel] = useDebounce(
     async () => {
       if (!tmpValue) {
@@ -13,7 +17,7 @@ export const useStore = () => {
       }
       pushValue(tmpValue);
     },
-    3000,
+    debounceTime,
     [tmpValue]
   );
 
