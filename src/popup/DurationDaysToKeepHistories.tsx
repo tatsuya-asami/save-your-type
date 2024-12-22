@@ -10,12 +10,14 @@ export const DurationDaysToKeepHistories: React.FC = () => {
 
   return (
     <ListItem icon={<HistoryIcon />} handleClick={() => {}}>
-      <Stack>
+      <Stack alignItems={"center"} direction={"row"} spacing={2}>
         <ListItemText primary={"Duration to keep histories"} />
         <ListItemText
           primary={
             <TextField
-              slotProps={{ htmlInput: { min: 1, max: 90 } }}
+              slotProps={{
+                htmlInput: { min: 1, max: 180, style: { width: 60 } },
+              }}
               variant="standard"
               label="days"
               type="number"
