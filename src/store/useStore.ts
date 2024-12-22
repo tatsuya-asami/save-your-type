@@ -1,10 +1,10 @@
 import { useState } from "react";
 import useDebounce from "react-use/lib/useDebounce";
-import { Store, useChromeStorage } from "./useChromeStorage";
+import { Store, useChromeStorageHistories } from "./useChromeStorageHistories";
 
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
-  const { pushValue } = useChromeStorage();
+  const { pushValue } = useChromeStorageHistories();
 
   useDebounce(
     async () => {

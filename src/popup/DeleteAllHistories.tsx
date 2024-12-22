@@ -2,11 +2,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ListItemText from "@mui/material/ListItemText";
 import { AlertDialog } from "./AlertDialog";
 import { useState } from "react";
-import { useChromeStorage } from "../store/useChromeStorage";
+import { useChromeStorageHistories } from "../store/useChromeStorageHistories";
 import { ListItem } from "./ListItem";
 
 export const DeleteAllHistories: React.FC = () => {
-  const { removeAllValue } = useChromeStorage();
+  const { removeAllValue } = useChromeStorageHistories();
   const [isOpen, setIsOpen] = useState(false);
 
   return (

@@ -9,7 +9,7 @@ export type Store = {
 
 const STORAGE_KEY = "save-your-type";
 
-export const useChromeStorage = () => {
+export const useChromeStorageHistories = () => {
   const setStorage = useCallback((storeList: Store[]) => {
     return chrome.storage.local.set({
       [STORAGE_KEY]: storeList,
