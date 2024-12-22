@@ -8,7 +8,6 @@ export const DurationDaysToKeepHistories: React.FC = () => {
   return (
     <ListItemInputNumber
       icon={<HistoryIcon />}
-      handleClick={() => {}}
       label={"days"}
       value={settings.durationDaysToKeepHistories}
       slotProps={{

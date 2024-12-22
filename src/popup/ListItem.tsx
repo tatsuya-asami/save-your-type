@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 type Props = {
   icon: ReactNode;
-  handleClick: () => void;
+  handleClick?: () => void;
   children: ReactNode;
 };
 

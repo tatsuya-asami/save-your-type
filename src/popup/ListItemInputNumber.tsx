@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 type Props = {
   icon: ReactNode;
-  handleClick: () => void;
+  handleClick?: () => void;
   label: string;
   value: number;
   slotProps?: TextFieldProps["slotProps"];
