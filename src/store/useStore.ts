@@ -6,7 +6,7 @@ export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
   const { pushValue } = useChromeStorageHistories();
 
-  useDebounce(
+  const [isReady, cancel] = useDebounce(
     async () => {
       if (!tmpValue) {
         return;
@@ -26,6 +26,21 @@ export const useStore = () => {
     setTmpValue(value);
   };
 
+  const cancelPrevValueAndPushCurrentValue = (
+    inputValue: Omit<Store, "datetime" | "url">
+  ) => {
+    if (isReady()) {
+      return;
+    }
+    cancel();
+    const value: Store = {
+      ...inputValue,
+      datetime: new Date().toISOString(),
+      url: window.location.href,
+    };
+    pushValue(value);
+  };
+
   const pushValueImmediately = () => {
     if (!tmpValue) {
       return;
@@ -33,5 +48,9 @@ export const useStore = () => {
     pushValue(tmpValue);
   };
 
-  return { saveValue, pushValueImmediately };
+  return {
+    saveValue,
+    cancelPrevValueAndPushCurrentValue,
+    pushValueImmediately,
+  };
 };

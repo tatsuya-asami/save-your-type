@@ -1,7 +1,11 @@
 import { useStore } from "../../store/useStore";
 
 export const useEventListeners = () => {
-  const { saveValue, pushValueImmediately } = useStore();
+  const {
+    saveValue,
+    cancelPrevValueAndPushCurrentValue,
+    pushValueImmediately,
+  } = useStore();
 
   const handleInput = (event: Event) => {
     const eventTarget = event.target;
@@ -16,7 +20,20 @@ export const useEventListeners = () => {
     saveValue({ identifier, value });
   };
 
-  return { handleInput, pushValueImmediately };
+  const handleBlur = (event: Event) => {
+    const eventTarget = event.target;
+    if (!isHTMLElement(eventTarget)) {
+      return;
+    }
+    const value = getInputValue(eventTarget);
+    const identifier = getElementIdentifier(eventTarget);
+    if (value === undefined) {
+      return;
+    }
+    cancelPrevValueAndPushCurrentValue({ identifier, value });
+  };
+
+  return { handleInput, handleBlur, pushValueImmediately };
 };
 
 const isHTMLElement = (target: EventTarget | null): target is HTMLElement => {

@@ -3,7 +3,7 @@ import { useEventListeners } from "./eventListener";
 import { monitorDOMChanges } from "./monitorDOMChanges";
 
 export const useInputChangeObserverEffect = () => {
-  const { handleInput, pushValueImmediately } = useEventListeners();
+  const { handleInput, handleBlur, pushValueImmediately } = useEventListeners();
 
   useEffect(() => {
     window.addEventListener("beforeunload", pushValueImmediately);
@@ -20,6 +20,14 @@ export const useInputChangeObserverEffect = () => {
       document.body.removeEventListener("input", handleInput);
     };
   }, [handleInput]);
+
+  useEffect(() => {
+    window.addEventListener("blur", handleBlur, true);
+
+    return () => {
+      window.removeEventListener("blur", handleBlur, true);
+    };
+  }, [handleBlur]);
 
   useEffect(() => {
     const observer = monitorDOMChanges(handleInput);
