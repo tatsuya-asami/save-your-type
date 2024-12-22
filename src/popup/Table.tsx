@@ -6,7 +6,7 @@ import { CopyButton } from "./CopyButton";
 export const Table: React.FC = () => {
   const { rows } = useTableRows();
 
-  return <DataGrid columns={columns} rows={rows} autoPageSize />;
+  return <DataGrid columns={columns} rows={rows} density="compact" />;
 };
 
 type TableRow = {
@@ -39,6 +39,7 @@ const useTableRows = (): {
 
 const columns: GridColDef[] = [
   {
+    width: 190,
     field: "url",
     headerName: "URL",
     renderCell: (params) => (
@@ -53,6 +54,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
+    width: 250,
     field: "text",
     headerName: "TEXT",
     renderCell: (params) => (
@@ -63,6 +65,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
+    width: 100,
     field: "dom",
     headerName: "DOM",
     renderCell: (params) => (
@@ -73,6 +76,7 @@ const columns: GridColDef[] = [
     ),
   },
   {
+    width: 180,
     field: "datetime",
     headerName: "DATE TIME",
     renderCell: (params) => (
