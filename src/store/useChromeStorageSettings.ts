@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 
 export type Store = {
   durationDaysToKeepHistories: number;
-  debounceTime: number;
+  debounceTimeMs: number;
 };
 
 const DEFAULT_STORE: Store = {
   durationDaysToKeepHistories: 20,
-  debounceTime: 3000,
+  debounceTimeMs: 3000,
 } as const;
 
 const STORAGE_KEY = "settings";

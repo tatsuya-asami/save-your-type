@@ -4,7 +4,7 @@ import { ListItemInputNumber } from "./ListItemInputNumber";
 
 export const DebounceTimeMs: React.FC = () => {
   const {
-    settings: { debounceTime },
+    settings: { debounceTimeMs },
     updateSettings,
   } = useChromeStorageSettings();
 
@@ -12,12 +12,12 @@ export const DebounceTimeMs: React.FC = () => {
     <ListItemInputNumber
       icon={<HistoryIcon />}
       label={"ms"}
-      value={debounceTime}
+      value={debounceTimeMs}
       slotProps={{
         htmlInput: { min: 100, max: 10000, style: { width: 60 } },
       }}
       handleChange={(e) =>
-        updateSettings("debounceTime", Number(e.target.value))
+        updateSettings("debounceTimeMs", Number(e.target.value))
       }
     />
   );

@@ -6,7 +6,7 @@ import { useChromeStorageSettings } from "./useChromeStorageSettings";
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<Store>();
   const {
-    settings: { debounceTime },
+    settings: { debounceTimeMs },
   } = useChromeStorageSettings();
   const { pushValue } = useChromeStorageHistories();
 
@@ -17,7 +17,7 @@ export const useStore = () => {
       }
       pushValue(tmpValue);
     },
-    debounceTime,
+    debounceTimeMs,
     [tmpValue]
   );
 
