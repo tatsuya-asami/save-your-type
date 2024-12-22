@@ -49,7 +49,8 @@ export const useStore = () => {
     if (!tmpValue) {
       return;
     }
-    await pushValue(tmpValue);
+    // send background because async function is not allowed in beforeunload event
+    chrome.runtime.sendMessage({ type: "save-your-type", value: tmpValue });
   };
 
   return {
