@@ -67,7 +67,9 @@ const columns: GridColDef[] = [
     renderCell: (params) => (
       <>
         <CopyButton value={params.value} />
-        <Tooltip title={params.value}>{params.value}</Tooltip>
+        <Tooltip title={params.value}>
+          <span>{params.value}</span>
+        </Tooltip>
       </>
     ),
   },
@@ -78,7 +80,9 @@ const columns: GridColDef[] = [
     renderCell: (params) => (
       <>
         <CopyButton value={params.value} />
-        <Tooltip title={params.value}>{params.value}</Tooltip>
+        <Tooltip title={params.value}>
+          <span>{params.value}</span>
+        </Tooltip>
       </>
     ),
   },
@@ -89,7 +93,9 @@ const columns: GridColDef[] = [
     renderCell: (params) => (
       <>
         <CopyButton value={params.value} />
-        <Tooltip title={params.value}>{params.value}</Tooltip>
+        <Tooltip title={params.value}>
+          <span>{params.value}</span>
+        </Tooltip>
       </>
     ),
   },
