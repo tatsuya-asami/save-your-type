@@ -36,7 +36,7 @@ const useTableRows = (): {
           url: data.url,
           text: data.value,
           dom: data.identifier,
-          datetime: data.datetime,
+          datetime: new Date(data.datetime).toLocaleString(),
         };
       })
       .reverse() ?? [];
