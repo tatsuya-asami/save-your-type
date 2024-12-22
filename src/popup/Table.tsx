@@ -1,8 +1,7 @@
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import { useStorageData } from "./useStorageData";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import IconButton from "@mui/material/IconButton";
+import { CopyButton } from "./CopyButton";
 
 export const Table: React.FC = () => {
   const { rows } = useTableRows();
@@ -44,9 +43,7 @@ const columns: GridColDef[] = [
     headerName: "URL",
     renderCell: (params) => (
       <>
-        <IconButton onClick={() => navigator.clipboard.writeText(params.value)}>
-          <ContentCopyIcon fontSize="small" />
-        </IconButton>
+        <CopyButton value={params.value} />
         <Tooltip title={params.value}>
           <a href={params.value} target="_blank" rel="noopener noreferrer">
             {params.value}
@@ -55,7 +52,34 @@ const columns: GridColDef[] = [
       </>
     ),
   },
-  { field: "text", headerName: "TEXT" },
-  { field: "dom", headerName: "DOM" },
-  { field: "datetime", headerName: "DATE TIME", width: 150 },
+  {
+    field: "text",
+    headerName: "TEXT",
+    renderCell: (params) => (
+      <>
+        <CopyButton value={params.value} />
+        <Tooltip title={params.value}>{params.value}</Tooltip>
+      </>
+    ),
+  },
+  {
+    field: "dom",
+    headerName: "DOM",
+    renderCell: (params) => (
+      <>
+        <CopyButton value={params.value} />
+        <Tooltip title={params.value}>{params.value}</Tooltip>
+      </>
+    ),
+  },
+  {
+    field: "datetime",
+    headerName: "DATE TIME",
+    renderCell: (params) => (
+      <>
+        <CopyButton value={params.value} />
+        <Tooltip title={params.value}>{params.value}</Tooltip>
+      </>
+    ),
+  },
 ];
