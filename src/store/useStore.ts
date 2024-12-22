@@ -45,11 +45,11 @@ export const useStore = () => {
     pushValue(value);
   };
 
-  const pushValueImmediately = () => {
+  const pushValueImmediately = async () => {
     if (!tmpValue) {
       return;
     }
-    pushValue(tmpValue);
+    await pushValue(tmpValue);
   };
 
   return {
