@@ -4,8 +4,11 @@ import { Tabs } from "./Tabs";
 import { Table } from "./Table";
 import Box from "@mui/material/Box";
 import { Settings } from "./Settings";
+import { useDeleteOldHistories } from "./useDeleteOldHistories";
 
 export const Root: React.FC = () => {
+  useDeleteOldHistories();
+
   const [value, setValue] = useState(0);
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {

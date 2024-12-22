@@ -24,19 +24,38 @@ export const useChromeStorageHistories = () => {
     });
   }, []);
 
-  const pushValue = (newValue: Store) => {
-    getStorage().then((store) => {
-      if (store) {
-        setStorage([...store, newValue]);
-      } else {
-        setStorage([newValue]);
-      }
-    });
-  };
+  const pushValue = useCallback(
+    (newValue: Store) => {
+      getStorage().then((store) => {
+        if (store) {
+          setStorage([...store, newValue]);
+        } else {
+          setStorage([newValue]);
+        }
+      });
+    },
+    [getStorage, setStorage]
+  );
 
   const removeAllValue = () => {
     chrome.storage.local.clear();
   };
 
-  return { getStorage, pushValue, removeAllValue };
+  const removeValuesBefore = useCallback(
+    (durationDays: number) => {
+      getStorage().then((store) => {
+        if (!store) {
+          return;
+        }
+
+        const before = new Date();
+        before.setDate(before.getDate() - durationDays);
+
+        setStorage(store.filter((s) => new Date(s.datetime) >= before));
+      });
+    },
+    [getStorage, setStorage]
+  );
+
+  return { getStorage, pushValue, removeAllValue, removeValuesBefore };
 };
