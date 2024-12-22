@@ -3,6 +3,7 @@ import { TabPanel } from "./TabPanel";
 import { Tabs } from "./Tabs";
 import { Table } from "./Table";
 import Box from "@mui/material/Box";
+import { Settings } from "./Settings";
 
 export const Root: React.FC = () => {
   const [value, setValue] = useState(0);
@@ -22,7 +23,7 @@ export const Root: React.FC = () => {
           <Table />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <Settings />
         </TabPanel>
       </Tabs>
     </Box>
