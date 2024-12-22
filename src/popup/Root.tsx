@@ -7,12 +7,12 @@ import Box from "@mui/material/Box";
 export const Root: React.FC = () => {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   return (
-    <Box>
+    <Box minHeight={"100svh"}>
       <Tabs
         value={value}
         handleChange={handleChange}
