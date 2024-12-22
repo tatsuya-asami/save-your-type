@@ -46,8 +46,17 @@ const isEditableTag = (
   return eventTarget.tagName === "INPUT" || eventTarget.tagName === "TEXTAREA";
 };
 
+const isExcludedElement = (element: HTMLElement) => {
+  if (element.getAttribute("type") === "password") {
+    return true;
+  }
+};
+
 const getInputValue = (eventTarget: EventTarget) => {
   if (!isHTMLElement(eventTarget)) {
+    return;
+  }
+  if (isExcludedElement(eventTarget)) {
     return;
   }
   if (isEditableTag(eventTarget)) {
