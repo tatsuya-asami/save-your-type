@@ -29,15 +29,17 @@ const useTableRows = (): {
 } => {
   const { storageData } = useStorageData();
   const rows: GridRowsProp<TableRow> =
-    storageData?.map((data, index) => {
-      return {
-        id: index + 1,
-        url: data.url,
-        text: data.value,
-        dom: data.identifier,
-        datetime: data.datetime,
-      };
-    }) ?? [];
+    storageData
+      ?.map((data, index) => {
+        return {
+          id: index + 1,
+          url: data.url,
+          text: data.value,
+          dom: data.identifier,
+          datetime: data.datetime,
+        };
+      })
+      .reverse() ?? [];
 
   return {
     rows,
