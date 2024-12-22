@@ -29,9 +29,9 @@ type TableRow = {
 const useTableRows = (): {
   rows: GridRowsProp<TableRow>;
 } => {
-  const { currentStorageData } = useStorageData();
+  const { storageData } = useStorageData();
   const rows: GridRowsProp<TableRow> =
-    currentStorageData?.map((data, index) => {
+    storageData?.map((data, index) => {
       return {
         id: index + 1,
         url: data.url,
