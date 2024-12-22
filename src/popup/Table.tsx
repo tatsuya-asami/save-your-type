@@ -7,14 +7,12 @@ export const Table: React.FC = () => {
   const { rows } = useTableRows();
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        columns={columns}
-        rows={rows}
-        density="compact"
-        disableRowSelectionOnClick
-      />
-    </div>
+    <DataGrid
+      columns={columns}
+      rows={rows}
+      density="compact"
+      disableRowSelectionOnClick
+    />
   );
 };
 
