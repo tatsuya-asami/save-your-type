@@ -24,17 +24,30 @@ export const useChromeStorageHistories = () => {
     });
   }, []);
 
+  const RemoveOldestValues = useCallback(async () => {
+    const store = await getStorage();
+    if (!store || store.length === 0) {
+      return;
+    }
+    store.shift();
+    await setStorage(store);
+  }, [getStorage, setStorage]);
+
   const pushValue = useCallback(
     (newValue: Store) => {
       getStorage().then((store) => {
-        if (store) {
-          setStorage([...store, newValue]);
-        } else {
-          setStorage([newValue]);
-        }
+        const value = store ? [...store, newValue] : [newValue];
+        setStorage(value).catch((error) => {
+          if (error.message === "Storage limit exceeded") {
+            RemoveOldestValues();
+            pushValue(newValue);
+          } else {
+            console.error("Failed to set storage:", error);
+          }
+        });
       });
     },
-    [getStorage, setStorage]
+    [RemoveOldestValues, getStorage, setStorage]
   );
 
   const removeAllValue = () => {
