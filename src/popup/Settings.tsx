@@ -5,7 +5,7 @@ import { UrlBlackList } from "./UrlBlackList";
 
 export const Settings: React.FC = () => {
   return (
-    <Box>
+    <Box width={"max-content"}>
       <List>
         <DeleteAllHistories />
         <UrlBlackList />

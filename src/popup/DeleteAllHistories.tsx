@@ -1,4 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
+import ListItemText from "@mui/material/ListItemText";
 import { AlertDialog } from "./AlertDialog";
 import { useState } from "react";
 import { useChromeStorage } from "../store/useChromeStorage";
@@ -10,11 +11,9 @@ export const DeleteAllHistories: React.FC = () => {
 
   return (
     <>
-      <ListItem
-        icon={<DeleteIcon />}
-        text="Delete all histories"
-        handleClick={() => setIsOpen(true)}
-      />
+      <ListItem icon={<DeleteIcon />} handleClick={() => setIsOpen(true)}>
+        {<ListItemText primary="Delete all histories" />}
+      </ListItem>
       <AlertDialog
         isOpen={isOpen}
         handleCancel={() => setIsOpen(false)}
