@@ -9,10 +9,10 @@ export const useStorageData = () => {
   const { getStorage } = useChromeStorageHistories();
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, async () => {
+    (async () => {
       const data = await getStorage();
       setStorageData(data);
-    });
+    })();
   }, [getStorage]);
 
   return {
