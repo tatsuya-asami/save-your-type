@@ -2,9 +2,10 @@ import ListItemText from "@mui/material/ListItemText";
 import HistoryIcon from "@mui/icons-material/History";
 import TextField from "@mui/material/TextField";
 import { ListItem } from "./ListItem";
+import { useChromeStorageSettings } from "../store/useChromeStorageSettings";
 
 export const DurationDaysToKeepHistories: React.FC = () => {
-  const durationDays = 30;
+  const { settings, updateSettings } = useChromeStorageSettings();
 
   return (
     <ListItem icon={<HistoryIcon />} handleClick={() => {}}>
@@ -14,7 +15,14 @@ export const DurationDaysToKeepHistories: React.FC = () => {
           <TextField
             variant="standard"
             label="days"
-            defaultValue={durationDays}
+            type="number"
+            value={settings.durationDaysToKeepHistories}
+            onChange={(e) =>
+              updateSettings(
+                "durationDaysToKeepHistories",
+                Number(e.target.value)
+              )
+            }
           />
         }
       />

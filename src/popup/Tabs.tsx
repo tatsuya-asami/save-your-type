@@ -31,7 +31,7 @@ export const Tabs: React.FC<Props> = ({
           aria-label="basic tabs example"
         >
           {tabLabels.map((label, index) => (
-            <Tab label={label} {...a11yProps(index)} />
+            <Tab key={label} label={label} {...a11yProps(index)} />
           ))}
         </MuiTabs>
       </Box>
