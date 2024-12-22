@@ -1,19 +1,13 @@
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import { useStorageData } from "./useStorageData";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import IconButton from "@mui/material/IconButton";
 
 export const Table: React.FC = () => {
   const { rows } = useTableRows();
 
-  return (
-    <DataGrid
-      columns={columns}
-      rows={rows}
-      onClipboardCopy={(a) => {
-        console.log("a", a);
-      }}
-    />
-  );
+  return <DataGrid columns={columns} rows={rows} autoPageSize />;
 };
 
 type TableRow = {
@@ -49,11 +43,16 @@ const columns: GridColDef[] = [
     field: "url",
     headerName: "URL",
     renderCell: (params) => (
-      <Tooltip title={params.value}>
-        <a href={params.value} target="_blank" rel="noopener noreferrer">
-          {params.value}
-        </a>
-      </Tooltip>
+      <>
+        <IconButton onClick={() => navigator.clipboard.writeText(params.value)}>
+          <ContentCopyIcon fontSize="small" />
+        </IconButton>
+        <Tooltip title={params.value}>
+          <a href={params.value} target="_blank" rel="noopener noreferrer">
+            {params.value}
+          </a>
+        </Tooltip>
+      </>
     ),
   },
   { field: "text", headerName: "TEXT" },
