@@ -15,7 +15,7 @@ export const DurationDaysToKeepHistories: React.FC = () => {
         <ListItemText
           primary={
             <TextField
-              size="small"
+              slotProps={{ htmlInput: { min: 1, max: 90 } }}
               variant="standard"
               label="days"
               type="number"
