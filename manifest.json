@@ -10,7 +10,7 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": ["storage", "background"],
+  "permissions": ["storage", "background", "activeTab"],
   "background": {
     "service_worker": "src/background.ts",
     "type": "module"
