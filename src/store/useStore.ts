@@ -16,6 +16,7 @@ export const useStore = () => {
         return;
       }
       pushValue(tmpValue);
+      setTmpValue(undefined);
     },
     debounceTimeMs,
     [tmpValue]
