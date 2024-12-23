@@ -34,7 +34,8 @@ export const useStore = () => {
   const cancelPrevValueAndPushCurrentValue = (
     inputValue: Omit<Store, "datetime" | "url">
   ) => {
-    if (isReady()) {
+    // isReady is return null or true when not typing. return false when debouncing.
+    if (isReady() === null || isReady() === true) {
       return;
     }
     cancel();
