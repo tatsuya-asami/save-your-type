@@ -45,7 +45,7 @@ export const useStore = () => {
     pushValue(value);
   };
 
-  const pushValueImmediately = async () => {
+  const pushValueImmediately = () => {
     if (!tmpValue) {
       return;
     }
