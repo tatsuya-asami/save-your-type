@@ -10,7 +10,7 @@
       "matches": ["https://*/*", "http://*/*"]
     }
   ],
-  "permissions": ["storage", "background", "activeTab"],
+  "permissions": ["storage", "background"],
   "background": {
     "service_worker": "src/background.ts",
     "type": "module"
