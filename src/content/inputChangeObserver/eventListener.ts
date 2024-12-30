@@ -60,9 +60,9 @@ const getInputValue = (eventTarget: EventTarget) => {
     return;
   }
   if (isEditableTag(eventTarget)) {
-    return eventTarget.value;
+    return eventTarget.value.trim();
   } else {
-    return eventTarget.innerText;
+    return eventTarget.innerText.trim();
   }
 };
 
