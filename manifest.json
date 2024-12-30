@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Save Your Type",
   "description": "Save your almost all typed text to local storage.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "action": { "default_popup": "index.html" },
   "content_scripts": [
     {
