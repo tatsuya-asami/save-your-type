@@ -14,7 +14,7 @@ export const useEventListeners = () => {
     }
     const value = getInputValue(eventTarget);
     const identifier = getElementIdentifier(eventTarget);
-    if (value === undefined) {
+    if (!value) {
       return;
     }
     saveValue({ identifier, value });
@@ -27,7 +27,7 @@ export const useEventListeners = () => {
     }
     const value = getInputValue(eventTarget);
     const identifier = getElementIdentifier(eventTarget);
-    if (value === undefined) {
+    if (!value) {
       return;
     }
     cancelPrevValueAndPushCurrentValue({ identifier, value });
@@ -60,9 +60,9 @@ const getInputValue = (eventTarget: EventTarget) => {
     return;
   }
   if (isEditableTag(eventTarget)) {
-    return eventTarget.value;
+    return eventTarget.value.trim();
   } else {
-    return eventTarget.innerText;
+    return eventTarget.innerText.trim();
   }
 };
 
