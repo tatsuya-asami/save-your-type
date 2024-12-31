@@ -30,10 +30,10 @@ chrome.runtime.onMessage.addListener(
               value = histories ? [...histories, newValue] : [newValue];
             } else {
               console.error("Failed to set storage:", error);
-              return;
             }
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            attempts++;
           }
-          attempts++;
         }
 
         break;

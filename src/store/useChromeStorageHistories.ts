@@ -45,7 +45,7 @@ export const useChromeStorageHistories = () => {
   );
 
   const sendValueToBackground = useCallback((value: Store) => {
-    chrome.runtime.sendMessage({ type: "save-your-type", value });
+    chrome.runtime.sendMessage({ type: STORAGE_KEY, value });
   }, []);
 
   return {
