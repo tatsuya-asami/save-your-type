@@ -11,8 +11,8 @@ chrome.runtime.onMessage.addListener(
     switch (message.type) {
       case HISTORIES_KEY: {
         try {
-          const histories = await getStorage();
-          await setStorage([...histories, message.value]);
+          const histories = await getHistories();
+          await setHistories([...histories, message.value]);
         } catch (error) {
           console.error("Error accessing storage:", error);
         }
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-const getStorage = (): Promise<Store[]> => {
+const getHistories = (): Promise<Store[]> => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(
       HISTORIES_KEY,
@@ -42,7 +42,7 @@ const getStorage = (): Promise<Store[]> => {
   });
 };
 
-const setStorage = (value: Store[]) => {
+const setHistories = (value: Store[]) => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({ [HISTORIES_KEY]: value }, () => {
       if (chrome.runtime.lastError) {
