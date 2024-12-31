@@ -1,31 +1,23 @@
 import { useCallback } from "react";
-
-export type Store = {
-  url: string;
-  datetime: string;
-  identifier: string;
-  value: string;
-};
-
-const STORAGE_KEY = "save-your-type";
+import { HISTORY_KEY, History } from "../chromeStorage/history";
 
 export const useChromeStorageHistories = () => {
-  const setStorage = useCallback((storeList: Store[]) => {
+  const setStorage = useCallback((storeList: History[]) => {
     return chrome.storage.local.set({
-      [STORAGE_KEY]: storeList,
+      [HISTORY_KEY]: storeList,
     });
   }, []);
 
   const getStorage = useCallback(() => {
-    return new Promise<Store[] | undefined>((resolve) => {
-      chrome.storage.local.get(STORAGE_KEY, (result) => {
-        resolve(result[STORAGE_KEY]);
+    return new Promise<History[] | undefined>((resolve) => {
+      chrome.storage.local.get(HISTORY_KEY, (result) => {
+        resolve(result[HISTORY_KEY]);
       });
     });
   }, []);
 
   const removeAllValue = () => {
-    chrome.storage.local.remove(STORAGE_KEY);
+    chrome.storage.local.remove(HISTORY_KEY);
   };
 
   const removeValuesBefore = useCallback(
@@ -44,8 +36,8 @@ export const useChromeStorageHistories = () => {
     [getStorage, setStorage]
   );
 
-  const sendValueToBackground = useCallback((value: Store) => {
-    chrome.runtime.sendMessage({ type: STORAGE_KEY, value });
+  const sendValueToBackground = useCallback((value: History) => {
+    chrome.runtime.sendMessage({ type: HISTORY_KEY, value });
   }, []);
 
   return {

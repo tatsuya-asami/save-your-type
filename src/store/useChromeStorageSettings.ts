@@ -1,36 +1,33 @@
 import { useCallback, useEffect, useState } from "react";
+import { Setting, SETTING_KEY } from "../chromeStorage/setting";
 
-export type Store = {
-  durationDaysToKeepHistories: number;
-  debounceTimeMs: number;
-};
-
-const DEFAULT_STORE: Store = {
+const DEFAULT_STORE: Setting = {
   durationDaysToKeepHistories: 20,
   debounceTimeMs: 3000,
 } as const;
 
-const STORAGE_KEY = "settings";
-
 export const useChromeStorageSettings = () => {
-  const [settings, setSettings] = useState<Store>(DEFAULT_STORE);
+  const [settings, setSettings] = useState<Setting>(DEFAULT_STORE);
 
-  const setStorage = useCallback((store: Store) => {
+  const setStorage = useCallback((store: Setting) => {
     setSettings(store);
     return chrome.storage.local.set({
-      [STORAGE_KEY]: store,
+      [SETTING_KEY]: store,
     });
   }, []);
 
   const getStorage = useCallback(() => {
-    return new Promise<Store | undefined>((resolve) => {
-      chrome.storage.local.get(STORAGE_KEY, (result) => {
-        resolve(result[STORAGE_KEY]);
+    return new Promise<Setting | undefined>((resolve) => {
+      chrome.storage.local.get(SETTING_KEY, (result) => {
+        resolve(result[SETTING_KEY]);
       });
     });
   }, []);
 
-  const updateSettings = <T extends keyof Store>(key: T, value: Store[T]) => {
+  const updateSettings = <T extends keyof Setting>(
+    key: T,
+    value: Setting[T]
+  ) => {
     getStorage().then((store) => {
       if (store) {
         setStorage({ ...store, [key]: value });

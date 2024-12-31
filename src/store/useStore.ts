@@ -1,10 +1,11 @@
 import { useState } from "react";
 import useDebounce from "react-use/lib/useDebounce";
-import { Store, useChromeStorageHistories } from "./useChromeStorageHistories";
+import { useChromeStorageHistories } from "./useChromeStorageHistories";
 import { useChromeStorageSettings } from "./useChromeStorageSettings";
+import { History } from "../chromeStorage/history";
 
 export const useStore = () => {
-  const [tmpValue, setTmpValue] = useState<Store>();
+  const [tmpValue, setTmpValue] = useState<History>();
   const {
     settings: { debounceTimeMs },
   } = useChromeStorageSettings();
@@ -22,8 +23,8 @@ export const useStore = () => {
     [tmpValue]
   );
 
-  const saveValue = (inputValue: Omit<Store, "datetime" | "url">) => {
-    const value: Store = {
+  const saveValue = (inputValue: Omit<History, "datetime" | "url">) => {
+    const value: History = {
       ...inputValue,
       datetime: new Date().toISOString(),
       url: window.location.href,
@@ -32,14 +33,14 @@ export const useStore = () => {
   };
 
   const cancelPrevValueAndPushCurrentValue = (
-    inputValue: Omit<Store, "datetime" | "url">
+    inputValue: Omit<History, "datetime" | "url">
   ) => {
     // isReady is return null or true when not typing. return false when debouncing.
     if (isReady() === null || isReady() === true) {
       return;
     }
     cancel();
-    const value: Store = {
+    const value: History = {
       ...inputValue,
       datetime: new Date().toISOString(),
       url: window.location.href,
