@@ -2,7 +2,7 @@ import { useState } from "react";
 import useDebounce from "react-use/lib/useDebounce";
 import { useChromeStorageHistories } from "./useChromeStorageHistories";
 import { useChromeStorageSettings } from "./useChromeStorageSettings";
-import { History } from "../shared/history";
+import { History } from "../chromeStorage/history";
 
 export const useStore = () => {
   const [tmpValue, setTmpValue] = useState<History>();

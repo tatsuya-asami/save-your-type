@@ -1,4 +1,4 @@
-import { HISTORY_KEY, History } from "./shared/history";
+import { HISTORY_KEY, History } from "./chromeStorage/history";
 
 chrome.runtime.onMessage.addListener(
   async (message: { type: string; value: History }) => {

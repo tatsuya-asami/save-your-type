@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useChromeStorageHistories } from "../store/useChromeStorageHistories";
-import { History } from "../shared/history";
+import { History } from "../chromeStorage/history";
 
 export const useStorageData = () => {
   const [storageData, setStorageData] = useState<History[]>();

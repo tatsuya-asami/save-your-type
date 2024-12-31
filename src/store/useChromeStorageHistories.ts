@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { HISTORY_KEY, History } from "../shared/history";
+import { HISTORY_KEY, History } from "../chromeStorage/history";
 
 export const useChromeStorageHistories = () => {
   const setStorage = useCallback((storeList: History[]) => {

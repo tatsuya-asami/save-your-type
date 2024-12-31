@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Setting, SETTING_KEY } from "../shared/setting";
+import { Setting, SETTING_KEY } from "../chromeStorage/setting";
 
 const DEFAULT_STORE: Setting = {
   durationDaysToKeepHistories: 20,
