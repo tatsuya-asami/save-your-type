@@ -85,5 +85,15 @@ export const useChromeStorageHistories = () => {
     [getStorage, setStorage]
   );
 
-  return { getStorage, pushValue, removeAllValue, removeValuesBefore };
+  const sendValueToBackground = useCallback((value: Store) => {
+    chrome.runtime.sendMessage({ type: "save-your-type", value });
+  }, []);
+
+  return {
+    getStorage,
+    pushValue,
+    removeAllValue,
+    removeValuesBefore,
+    sendValueToBackground,
+  };
 };

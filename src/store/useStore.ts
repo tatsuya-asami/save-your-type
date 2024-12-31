@@ -8,14 +8,14 @@ export const useStore = () => {
   const {
     settings: { debounceTimeMs },
   } = useChromeStorageSettings();
-  const { pushValue } = useChromeStorageHistories();
+  const { sendValueToBackground } = useChromeStorageHistories();
 
   const [isReady, cancel] = useDebounce(
     async () => {
       if (!tmpValue) {
         return;
       }
-      pushValue(tmpValue);
+      sendValueToBackground(tmpValue);
       setTmpValue(undefined);
     },
     debounceTimeMs,
@@ -44,7 +44,7 @@ export const useStore = () => {
       datetime: new Date().toISOString(),
       url: window.location.href,
     };
-    pushValue(value);
+    sendValueToBackground(value);
   };
 
   const pushValueImmediately = () => {
@@ -52,7 +52,7 @@ export const useStore = () => {
       return;
     }
     // send background because async function is not allowed in beforeunload event
-    chrome.runtime.sendMessage({ type: "save-your-type", value: tmpValue });
+    sendValueToBackground(tmpValue);
   };
 
   return {
