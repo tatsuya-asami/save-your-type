@@ -1,13 +1,7 @@
-type Store = {
-  url: string;
-  datetime: string;
-  identifier: string;
-  value: string;
-};
-const HISTORIES_KEY = "save-your-type";
+import { HISTORIES_KEY, History } from "./shared/histories";
 
 chrome.runtime.onMessage.addListener(
-  async (message: { type: string; value: Store }) => {
+  async (message: { type: string; value: History }) => {
     const { type, value: newValue } = message;
     switch (type) {
       case HISTORIES_KEY: {
@@ -46,11 +40,11 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-const getHistories = (): Promise<Store[]> => {
+const getHistories = (): Promise<History[]> => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(
       HISTORIES_KEY,
-      (result: { [HISTORIES_KEY]: Store[] }) => {
+      (result: { [HISTORIES_KEY]: History[] }) => {
         if (chrome.runtime.lastError) {
           reject(chrome.runtime.lastError);
         } else {
@@ -61,7 +55,7 @@ const getHistories = (): Promise<Store[]> => {
   });
 };
 
-const setHistories = (value: Store[]) => {
+const setHistories = (value: History[]) => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({ [HISTORIES_KEY]: value }, () => {
       if (chrome.runtime.lastError) {

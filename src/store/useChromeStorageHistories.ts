@@ -1,13 +1,9 @@
 import { useCallback } from "react";
+import { HISTORIES_KEY, History } from "../shared/histories";
 
-export type Store = {
-  url: string;
-  datetime: string;
-  identifier: string;
-  value: string;
-};
+export type Store = History;
 
-const STORAGE_KEY = "save-your-type";
+const STORAGE_KEY = HISTORIES_KEY;
 
 export const useChromeStorageHistories = () => {
   const setStorage = useCallback((storeList: Store[]) => {
