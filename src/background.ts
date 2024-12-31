@@ -1,10 +1,10 @@
-import { HISTORIES_KEY, History } from "./shared/histories";
+import { HISTORY_KEY, History } from "./shared/history";
 
 chrome.runtime.onMessage.addListener(
   async (message: { type: string; value: History }) => {
     const { type, value: newValue } = message;
     switch (type) {
-      case HISTORIES_KEY: {
+      case HISTORY_KEY: {
         let histories = await getHistories();
         let value = histories ? [...histories, newValue] : [newValue];
         let attempts = 0;
@@ -43,12 +43,12 @@ chrome.runtime.onMessage.addListener(
 const getHistories = (): Promise<History[]> => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(
-      HISTORIES_KEY,
-      (result: { [HISTORIES_KEY]: History[] }) => {
+      HISTORY_KEY,
+      (result: { [HISTORY_KEY]: History[] }) => {
         if (chrome.runtime.lastError) {
           reject(chrome.runtime.lastError);
         } else {
-          resolve(result[HISTORIES_KEY] || []);
+          resolve(result[HISTORY_KEY] || []);
         }
       }
     );
@@ -57,7 +57,7 @@ const getHistories = (): Promise<History[]> => {
 
 const setHistories = (value: History[]) => {
   return new Promise((resolve, reject) => {
-    chrome.storage.local.set({ [HISTORIES_KEY]: value }, () => {
+    chrome.storage.local.set({ [HISTORY_KEY]: value }, () => {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       } else {

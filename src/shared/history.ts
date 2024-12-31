@@ -1,4 +1,4 @@
-export const HISTORIES_KEY = "save-your-type";
+export const HISTORY_KEY = "save-your-type";
 
 export type History = {
   url: string;
