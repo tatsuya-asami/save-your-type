@@ -6,6 +6,11 @@ chrome.runtime.onMessage.addListener(
     switch (type) {
       case HISTORY_KEY: {
         let histories = await getHistories();
+
+        if (isDuplicateLastHistory(histories, newValue)) {
+          return;
+        }
+
         let value = histories ? [...histories, newValue] : [newValue];
         let attempts = 0;
 
@@ -76,4 +81,24 @@ const removeOldHistories = async () => {
   histories.shift();
   histories.shift();
   await setHistories(histories);
+};
+
+const isDuplicateLastHistory = (histories: History[], newValue: History) => {
+  if (!histories.length) {
+    return false;
+  }
+  const lastHistory = histories.at(-1);
+  if (!lastHistory) {
+    return false;
+  }
+
+  if (
+    lastHistory.url === newValue.url &&
+    lastHistory.identifier === newValue.identifier &&
+    lastHistory.value === newValue.value
+  ) {
+    return true;
+  }
+
+  return false;
 };
