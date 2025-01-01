@@ -28,19 +28,28 @@ export const useChromeStorageSettings = () => {
     key: T,
     value: Setting[T]
   ) => {
-    getStorage().then((setting) => {
-      if (setting) {
-        setStorage({ ...setting, [key]: value });
-      } else {
-        setStorage({ ...DEFAULT_SETTING, [key]: value });
-      }
-    });
+    getStorage()
+      .then((setting) => {
+        if (setting) {
+          setStorage({ ...setting, [key]: value });
+        } else {
+          setStorage({ ...DEFAULT_SETTING, [key]: value });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
-    getStorage().then((setting) => {
-      setSettings(setting ?? DEFAULT_SETTING);
-    });
+    getStorage()
+      .then((setting) => {
+        setSettings(setting ?? DEFAULT_SETTING);
+      })
+      .catch((error) => {
+        console.error(error);
+        setSettings(DEFAULT_SETTING);
+      });
   }, [getStorage]);
 
   return { settings, updateSettings };
