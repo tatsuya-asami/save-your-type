@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 import { Setting, SETTING_KEY } from "../chromeStorage/setting";
 
-const DEFAULT_STORE: Setting = {
+const DEFAULT_SETTING: Setting = {
   durationDaysToKeepHistories: 20,
   debounceTimeMs: 3000,
 } as const;
 
 export const useChromeStorageSettings = () => {
-  const [settings, setSettings] = useState<Setting>(DEFAULT_STORE);
+  const [settings, setSettings] = useState<Setting>(DEFAULT_SETTING);
 
-  const setStorage = useCallback((store: Setting) => {
-    setSettings(store);
+  const setStorage = useCallback((setting: Setting) => {
+    setSettings(setting);
     return chrome.storage.local.set({
-      [SETTING_KEY]: store,
+      [SETTING_KEY]: setting,
     });
   }, []);
 
@@ -28,18 +28,18 @@ export const useChromeStorageSettings = () => {
     key: T,
     value: Setting[T]
   ) => {
-    getStorage().then((store) => {
-      if (store) {
-        setStorage({ ...store, [key]: value });
+    getStorage().then((setting) => {
+      if (setting) {
+        setStorage({ ...setting, [key]: value });
       } else {
-        setStorage({ ...DEFAULT_STORE, [key]: value });
+        setStorage({ ...DEFAULT_SETTING, [key]: value });
       }
     });
   };
 
   useEffect(() => {
-    getStorage().then((store) => {
-      setSettings(store ?? DEFAULT_STORE);
+    getStorage().then((setting) => {
+      setSettings(setting ?? DEFAULT_SETTING);
     });
   }, [getStorage]);
 
