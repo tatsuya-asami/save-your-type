@@ -22,22 +22,30 @@ export const useChromeStorageHistories = () => {
 
   const removeValuesBefore = useCallback(
     (durationDays: number) => {
-      getStorage().then((store) => {
-        if (!store) {
-          return;
-        }
+      getStorage()
+        .then((store) => {
+          if (!store) {
+            return;
+          }
 
-        const before = new Date();
-        before.setDate(before.getDate() - durationDays);
+          const before = new Date();
+          before.setDate(before.getDate() - durationDays);
 
-        setStorage(store.filter((s) => new Date(s.datetime) >= before));
-      });
+          setStorage(store.filter((s) => new Date(s.datetime) >= before));
+        })
+        .catch((error) => {
+          console.error("removeValuesBefore:", error);
+        });
     },
     [getStorage, setStorage]
   );
 
   const sendValueToBackground = useCallback((value: History) => {
-    chrome.runtime.sendMessage({ type: HISTORY_KEY, value });
+    try {
+      chrome.runtime.sendMessage({ type: HISTORY_KEY, value });
+    } catch (error) {
+      console.error("sendValueToBackground:", error);
+    }
   }, []);
 
   return {
