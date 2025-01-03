@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(
             }
             if (error.message === "Storage limit exceeded") {
               console.warn("Storage limit exceeded. Removing oldest values...");
-              await removeOldHistories();
+              await removeOldestDateHistories();
               histories = await getHistories();
               value = histories ? [...histories, newValue] : [newValue];
             } else {
@@ -72,15 +72,22 @@ const setHistories = (value: History[]) => {
   });
 };
 
-const removeOldHistories = async () => {
+const removeOldestDateHistories = async () => {
   const histories = await getHistories();
   if (!histories || histories.length === 0) {
     return;
   }
-  histories.shift();
-  histories.shift();
-  histories.shift();
-  await setHistories(histories);
+  const oldestDate = histories.at(0)?.datetime;
+  if (!oldestDate) {
+    return;
+  }
+  const newHistories = histories.filter((h) => {
+    return (
+      new Date(h.datetime).toDateString() !==
+      new Date(oldestDate).toDateString()
+    );
+  });
+  await setHistories(newHistories);
 };
 
 const isDuplicateLastHistory = (histories: History[], newValue: History) => {
