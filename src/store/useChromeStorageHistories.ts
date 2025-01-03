@@ -37,7 +37,11 @@ export const useChromeStorageHistories = () => {
   );
 
   const sendValueToBackground = useCallback((value: History) => {
-    chrome.runtime.sendMessage({ type: HISTORY_KEY, value });
+    try {
+      chrome.runtime.sendMessage({ type: HISTORY_KEY, value });
+    } catch (error) {
+      console.error("sendValueToBackground:", error);
+    }
   }, []);
 
   return {
