@@ -19,7 +19,12 @@ export const useChromeStorageSettings = () => {
   const getStorage = useCallback(() => {
     return new Promise<Setting | undefined>((resolve) => {
       chrome.storage.local.get(SETTING_KEY, (result) => {
-        resolve(result[SETTING_KEY]);
+        if (chrome.runtime.lastError) {
+          console.error("error", chrome.runtime.lastError);
+          resolve(undefined);
+        } else {
+          resolve(result[SETTING_KEY]);
+        }
       });
     });
   }, []);
