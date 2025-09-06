@@ -11,7 +11,8 @@ export const DebounceTimeMs: React.FC = () => {
   return (
     <ListItemInputNumber
       icon={<HistoryIcon />}
-      label={"ms"}
+      label={"Debounce time to save typed text"}
+      unit={"ms"}
       value={debounceTimeMs}
       slotProps={{
         htmlInput: { min: 100, max: 10000, style: { width: 60 } },
