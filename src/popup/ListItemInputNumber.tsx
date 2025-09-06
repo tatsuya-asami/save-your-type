@@ -26,7 +26,7 @@ export const ListItemInputNumber: React.FC<Props> = ({
   return (
     <ListItem icon={icon} handleClick={handleClick}>
       <Stack alignItems={"center"} direction={"row"} spacing={2}>
-        <ListItemText primary={label} />
+        <ListItemText primary={label} sx={{ width: "250px" }} />
         <ListItemText
           primary={
             <TextField
