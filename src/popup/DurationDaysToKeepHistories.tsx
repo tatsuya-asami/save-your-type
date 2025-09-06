@@ -8,7 +8,8 @@ export const DurationDaysToKeepHistories: React.FC = () => {
   return (
     <ListItemInputNumber
       icon={<HistoryIcon />}
-      label={"days"}
+      label={"Duration to keep histories"}
+      unit={"days"}
       value={settings.durationDaysToKeepHistories}
       slotProps={{
         htmlInput: { min: 1, max: 180, style: { width: 60 } },
